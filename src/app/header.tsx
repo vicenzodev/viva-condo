@@ -6,12 +6,10 @@ export default function Header() {
   return (
     <header className="bg-gray-900 text-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo / Nome */}
         <div className="text-xl font-bold">
-          <Link href="/">MeuSite</Link>
+          <Link href="/">Site de condomínios</Link>
         </div>
 
-        {/* Navegação */}
         <nav className="space-x-6">
           <Link href="/" className="hover:text-gray-300 transition">
             Início
@@ -19,11 +17,11 @@ export default function Header() {
           <Link href="/condominios" className="hover:text-gray-300 transition">
             Condomínios
           </Link>
-          <Link href="/Moradores" className="hover:text-gray-300 transition">
+          <Link href="/moradores" className="hover:text-gray-300 transition">
             Moradores
           </Link>
-          <Link href="/contato" className="hover:text-gray-300 transition">
-            Contato
+          <Link href="/usuarios" className="hover:text-gray-300 transition">
+            Usuarios
           </Link>
         </nav>
       </div>
