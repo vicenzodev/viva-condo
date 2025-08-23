@@ -19,8 +19,8 @@ export default function Header() {
           <Link href="/condominios" className="hover:text-gray-300 transition">
             Condomínios
           </Link>
-          <Link href="/sobre" className="hover:text-gray-300 transition">
-            Sobre
+          <Link href="/Moradores" className="hover:text-gray-300 transition">
+            Moradores
           </Link>
           <Link href="/contato" className="hover:text-gray-300 transition">
             Contato
