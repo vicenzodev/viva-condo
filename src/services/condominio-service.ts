@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/client';
 
 export interface ICondominio{
     id: number;
@@ -9,6 +9,13 @@ export interface ICondominio{
     uf: string;
     tipo: string;
     created_at: string;
+}
+
+export interface TableCondominio {
+    error: string;
+    success: boolean;
+    count: number;
+    data: ICondominio[];
 }
 
 export async function getCondominios(){

@@ -1,38 +1,93 @@
 "use client";
+import { useEffect, useState } from "react";
+import { createClient } from "./utils/supabase/client";
+import { useRouter } from "next/navigation";
+import  Header  from "./header";
 
-import Header from './header';
+export default function Page() {
 
-type Morador = {
-  primeiroNome: string,
-  sobrenome: string
-}
+  const supabase = createClient();
+  const router = useRouter();
+  const [checkingSession, setCheckingSession] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-function formatarNomeMorador (morador: Morador){
-  return morador.primeiroNome+" "+morador.sobrenome;    
-}
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        router.replace("/condominios");
+      } else {
+        setCheckingSession(false);
+      }
+    };
+    checkSession();
+  }, []);
 
-export default function Home (){
-  const element = <span>Hello World</span>
+  const login = async (e: React.FormEvent) => {
 
-  function obterSaudacao(morador:null | Morador){
-    if(morador){
-      return <span>Olá, {formatarNomeMorador(morador)}</span>
-    }
-    return <span>Olá, Desconhecido.</span>
+    e.preventDefault();
+    setLoading(true);
+    setErrorMsg("");
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error || !data.user) {
+        setErrorMsg("E-mail ou senha inválidos.");
+        setLoading(false);
+        return;
+      }
+      router.replace("/condominios");
+    } catch (err) {
+    setErrorMsg("Erro inesperado. Tente novamente.");
+    setLoading(false);
   }
+}
 
-  const morador = {
-    primeiroNome: "João",
-    sobrenome: "Oligorvado"
+  if (checkingSession) {
+    return null;
   }
 
   return (
-    <div>
+    <div className="flex h-screen flex-col md:flex-row">
       <Header/>
-      <div className='flex flex-cool items-center justify-center h-screen'>
-        <h1 className="text-4xl px-10 py-5 rounded-lg bg-green-200 text-gray-500">{obterSaudacao(morador)}</h1>
+      <div className="w-full flex items-center justify-center p-6">
+        <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
+          <h2 className="text-2xl font-bold mb-4">Olá 👋</h2>
+          <p className="text-gray-500 mb-6">Insira as informações que você usou ao se registrar.</p>
+          <form onSubmit={login}>
+            <input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 mb-4 border rounded-md focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 mb-4 border rounded-md focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            {errorMsg && (
+              <div className="mb-4 text-red-600 text-sm text-center">
+                {errorMsg}
+              </div>
+            )}
+            <button type="submit"
+              className="w-full bg-gradient-to-r from-blue-500 to-green-500 text-white p-3 rounded-md hover:opacity-90 transition-all disabled:opacity-50"
+              disabled={loading}
+            >
+              {loading ? "Entrando..." : "Entrar"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
-  
 }
