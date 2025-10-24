@@ -51,8 +51,9 @@ export default function Page() {
   }
 
   return (
-    <div className="flex h-screen flex-col md:flex-row">
+    <div>
       <Header/>
+    <div className="flex h-screen flex-col md:flex-row">
       <div className="w-full flex items-center justify-center p-6">
         <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
           <h2 className="text-2xl font-bold mb-4">Olá 👋</h2>
@@ -88,6 +89,7 @@ export default function Page() {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 }

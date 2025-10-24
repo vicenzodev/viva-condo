@@ -26,12 +26,9 @@ export default function ListaCondominios() {
     }, [])
 
     return (
-        <div className="p-6 max-w-full"><Header/>
-        <div className="mb-4 flex items-center justify-between gap-4">
-            <h1 className="text-x1 font-semibold">Condominios</h1>
-        </div>
+        <div className="max-w-full flex"><Header/>
 
-        <div className="bg-white rounded-md border border-gray-200 overflow-hidden">
+        <div className="tabela">
             <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                     <tr>

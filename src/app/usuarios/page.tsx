@@ -6,12 +6,12 @@ export default function ListaMoradores() {
     return(
         <div>
             <Header/>
-            <div className="p-6 max-width-full">
+            <div className="max-width-full">
                 <div className="mb-4 flex items-center justify-between gap-4">
                     <h1 className="text-x1 font-semibold">Usuários</h1>
                 </div>
 
-                <div className="bg-white rounded-md border border-gray-200 overflow-hidden">
+                <div className="tabela">
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                             <tr>
