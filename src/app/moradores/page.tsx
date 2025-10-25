@@ -4,11 +4,11 @@ import Header from "../header";
 
 export default function ListaMoradores() {
     return(
-        <div>
+        <div className="max-w-3/4 flex flex-col">
             <Header/>
             <div className="max-width-full">
-                <div className="mb-4 flex items-center justify-between gap-4">
-                    <h1 className="text-x1 font-semibold">Moradores</h1>
+                <div className="mx-65 my-10 mb-4 flex items-center justify-between gap-4">
+                    <h1 className="text-x1 font-semibold text-gray-200 text-3xl">Moradores</h1>
                 </div>
 
                 <div className="tabela">

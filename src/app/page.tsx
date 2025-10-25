@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { createClient } from "./utils/supabase/client";
 import { useRouter } from "next/navigation";
-import  Header  from "./header";
 
 export default function Page() {
 
@@ -46,13 +45,16 @@ export default function Page() {
   }
 }
 
+  async function signOut(){
+    await supabase.auth.signOut();
+  }
+
   if (checkingSession) {
     return null;
   }
 
   return (
     <div>
-      <Header/>
     <div className="flex h-screen flex-col md:flex-row">
       <div className="w-full flex items-center justify-center p-6">
         <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
