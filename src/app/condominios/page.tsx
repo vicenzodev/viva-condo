@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { getCondominios, ICondominio } from '../services/condominio-service';
 import Header from "../header"
 import { FaSearch } from 'react-icons/fa';
+import Dropdown from "../../components/dropdown";
+import toast from "../../components/toast";
+
 
 export default function ListaCondominios() {
 
@@ -60,10 +63,7 @@ export default function ListaCondominios() {
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
             </div>
-        </div>     
-        
-        
-
+        </div>
             <div className="tabela">
                 <table className="min-w-full divide-y divide-gray-200 text-center">
                 <thead className="bg-gray-50">
@@ -118,7 +118,9 @@ export default function ListaCondominios() {
                         <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
                             {condominio.tipo}
                         </td>
-                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500"></td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                            <Dropdown/>
+                        </td>
                         </tr>
                     ))
                     )}
@@ -126,5 +128,5 @@ export default function ListaCondominios() {
                 </table>
             </div>
         </div>
-    ) ;
+    );
 }

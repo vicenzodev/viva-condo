@@ -40,3 +40,44 @@ body {
   margin-left: 260px;
   width: 100%;
 }
+
+.link:visited{
+  color: rgb(213, 119, 213);
+}
+
+button{
+  cursor: pointer;
+  outline: none;
+}
+
+.dp-content{
+  border-radius: 5px;
+  background-color: white;
+  border: 2px solid #999;
+}
+
+.item{
+  outline: none;
+  transition: 0.3s;
+  margin: 4px 6px;
+  padding: 3px 15px 3px 6px ;
+  color: #666;
+  border-radius: 5px;
+}
+
+.item:hover{
+  cursor: pointer;
+  background-color: #eee;
+}
+
+.triangle{
+  fill: #999;
+}
+
+.excluir{
+  color: rgb(255, 62, 62);
+}
+
+.excluir:hover{
+  background-color: rgb(255, 210, 210);
+}
