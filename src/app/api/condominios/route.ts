@@ -21,3 +21,10 @@ export async function GET() {
     }
 }
 
+export const DELETE = async () =>{
+    try{
+
+    }catch(e:any){
+
+    }
+}

@@ -25,3 +25,7 @@ export async function getCondominios(){
     if(error) throw new Error(error.message);
     return data ?? [];
 }
+
+export async function deleteCondominios(){
+
+}

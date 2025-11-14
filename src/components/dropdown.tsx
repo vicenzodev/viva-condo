@@ -2,13 +2,9 @@
 
 import { DropdownMenu } from "radix-ui";
 import { MdMoreVert } from "react-icons/md";
-
+import { AlertDialogDemo } from './alert'
 
 export default function dropdown(){
-    
-    const openModal = () => {
-        
-    }
     
     return(
 	<DropdownMenu.Root>
@@ -21,9 +17,8 @@ export default function dropdown(){
         <DropdownMenu.Item onSelect={() => console.log('Editado!')} className="item">
           Editar
         </DropdownMenu.Item>
-        <DropdownMenu.Item className="item excluir" onSelect={openModal}>Excluir</DropdownMenu.Item>
+        <AlertDialogDemo/>
         <DropdownMenu.Separator />
-
         <DropdownMenu.Arrow className="triangle" />
       </DropdownMenu.Content>
     </DropdownMenu.Portal>
