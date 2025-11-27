@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '../utils/supabase/server';
 
 export interface ICondominio{
     id: number;
@@ -18,14 +18,23 @@ export interface TableCondominio {
     data: ICondominio[];
 }
 
-export async function getCondominios(){
-    const supabase = await createClient();
+const supabase = await createClient();
+
+export async function getCondo(){
     const {data,error} = await supabase.from("condominio").select("*").order("id");
 
     if(error) throw new Error(error.message);
     return data ?? [];
 }
 
-export async function deleteCondominios(){
+export async function getCondoById(id:number){  
+    const {data,error} = await supabase.from("condominio").select("*").eq('id',id);
 
+    if(error) throw new Error(error.message);
+    return data ?? [];
+}
+
+export async function delCondo(id:number){
+    const {error} = await supabase.from("condominio").delete().eq('id',id);
+    if(error) throw new Error(error.message);
 }

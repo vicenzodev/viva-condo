@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { getCondominios, ICondominio } from '../services/condominio-service';
+import { ICondominio } from '../services/condominio-service';
 import Header from "../header"
 import { FaSearch } from 'react-icons/fa';
 import Dropdown from "../../components/dropdown";

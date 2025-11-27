@@ -1,11 +1,9 @@
-// Update the import path if the file is located elsewhere, for example:
-import { getCondominios } from '../../services/condominio-service';
-// Or create the file '../services/condominio-service.ts' and export getCondominios from it.
-import { NextResponse } from 'next/server';
+import { getCondo, delCondo } from '../../services/condominio-service';
+import { NextResponse, NextRequest } from 'next/server';
   
 export async function GET() {
     try {
-        const data = await getCondominios();
+        const data = await getCondo();
 
         return NextResponse.json({
             success: true, 
@@ -21,10 +19,17 @@ export async function GET() {
     }
 }
 
-export const DELETE = async () =>{
+export const DELETE = async (req:NextRequest) =>{
     try{
-
+        const body = await req.json();
+        await delCondo(body.id);
+        return NextResponse.json({
+            success: true
+        }, { status: 200 });
     }catch(e:any){
-
+        return NextResponse.json({
+            success: false,
+            error: e.message ?? "Erro inesperado",
+        }, { status: 400 });
     }
 }
