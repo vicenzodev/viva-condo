@@ -5,6 +5,7 @@ import { getCondominios, ICondominio } from '../services/condominio-service';
 import Header from "../header"
 import { FaSearch } from 'react-icons/fa';
 import Dropdown from "../../components/dropdown";
+import SearchBar from "../header"
 
 
 export default function ListaCondominios() {
@@ -51,7 +52,7 @@ export default function ListaCondominios() {
         <div className="max-w-3/4 flex flex-col"><Header/>
 
         <div className="mx-65 my-10 mb-4 flex items-center justify-between gap-4">
-            <h1 className="text-x1 font-semibold text-gray-200 text-3xl">Condomínios</h1>
+           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100"> Condomínios</h1>
             <div className="relative w-72">
             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
