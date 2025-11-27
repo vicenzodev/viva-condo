@@ -4,7 +4,7 @@ import { DropdownMenu } from "radix-ui";
 import { MdMoreVert } from "react-icons/md";
 import { AlertDialogDemo } from './alert'
 
-export default function dropdown(){
+export default function dropdown({onDelete}){
     
     return(
 	<DropdownMenu.Root>

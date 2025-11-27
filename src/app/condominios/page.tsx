@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { ICondominio } from '../services/condominio-service';
+import { ICondominio } from '../../services/condominio-service';
 import Header from "../header"
 import { FaSearch } from 'react-icons/fa';
 import Dropdown from "../../components/dropdown";
@@ -46,6 +46,20 @@ export default function ListaCondominios() {
         )
         setFilteredCondominios(filtrados)
     },[searchTerm,condominios]);
+
+    const excluirCondominio = async (id:number) => {
+        try {
+            const response = await fetch("/api/condominios"+id, 
+                {
+                    method:"DELETE",
+                    cache: "no-store"
+                });
+            const {data, success} = await response.json();
+            if (!data) throw new Error(success ?? "Erro ao excluir condomínio");
+        } catch (e: any) {
+            return false;
+        } 
+    };
 
     return (
         <div className="max-w-3/4 flex flex-col"><Header/>
@@ -118,7 +132,8 @@ export default function ListaCondominios() {
                             {condominio.tipo}
                         </td>
                         <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                            <Dropdown/>
+                            <Dropdown
+                            onDelete={}/>
                         </td>
                         </tr>
                     ))

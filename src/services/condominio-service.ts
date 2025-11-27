@@ -18,9 +18,8 @@ export interface TableCondominio {
     data: ICondominio[];
 }
 
-const supabase = await createClient();
-
 export async function getCondo(){
+    const supabase = await createClient();
     const {data,error} = await supabase.from("condominio").select("*").order("id");
 
     if(error) throw new Error(error.message);
@@ -28,6 +27,7 @@ export async function getCondo(){
 }
 
 export async function getCondoById(id:number){  
+    const supabase = await createClient();
     const {data,error} = await supabase.from("condominio").select("*").eq('id',id);
 
     if(error) throw new Error(error.message);
@@ -35,6 +35,8 @@ export async function getCondoById(id:number){
 }
 
 export async function delCondo(id:number){
-    const {error} = await supabase.from("condominio").delete().eq('id',id);
+    const supabase = await createClient();
+    const {data,error} = await supabase.from("condominio").delete().eq('id',id);
     if(error) throw new Error(error.message);
+    return data ?? [];
 }
