@@ -8,7 +8,7 @@ export default function ListaMoradores() {
             <Header/>
             <div className="max-width-full">
                 <div className="mx-65 my-10 mb-4 flex items-center justify-between gap-4">
-                    <h1 className="text-x1 font-semibold text-gray-200 text-3xl">Moradores</h1>
+                      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Moradores</h1>
                 </div>
 
                 <div className="tabela">
