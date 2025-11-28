@@ -6,7 +6,7 @@ import Header from "../header"
 import { FaSearch } from 'react-icons/fa';
 import Dropdown from "../../components/dropdown";
 import SearchBar from "../header"
-
+import { CondoToast } from '@/components/toast';
 
 export default function ListaCondominios() {
 
@@ -15,6 +15,9 @@ export default function ListaCondominios() {
     const [error, setErro] = useState <string | null>(null);
     const [loading, setLoading] = useState(true);
     const [searchTerm,setSearchTerm] = useState("");
+    const [toastOpen, setToastOpen] = useState(false);
+    const [toastDetails, setToastDetails] = useState({ title: "", description: "", tipo: "sucesso" as "sucesso" | "erro" });
+
 
     useEffect(() => {
         const buscarCondominios = async () => {
@@ -50,16 +53,28 @@ export default function ListaCondominios() {
 
     const excluirCondominio = async (id:number) => {
         try {
-            const response = await fetch("/api/condominios"+id, 
+            if(id==null) throw new Error("Id não identificado");
+
+            const response = await fetch("/api/condominios?id="+id, 
                 {
                     method:"DELETE",
                     cache: "no-store"
                 });
-            const {data, success} = await response.json();
-            if (!data) throw new Error(success ?? "Erro ao excluir condomínio");
-        } catch (e: any) {
-            return false;
-        } 
+            const { success } = await response.json();
+            if (response.ok) {
+            showToast("Sucesso","Condomínio excluído!");
+            setCondominios((prevCondominios) => 
+                prevCondominios.filter((condominio) => condominio.id !== id)
+            );}
+        } catch (e: any) {  
+            showToast("Erro","Condomínio não excluído!","erro");
+            return e;
+        }
+    };
+
+    const showToast = (title: string, description: string, tipo: "sucesso" | "erro" = "sucesso") => {
+        setToastDetails({ title, description, tipo });
+        setToastOpen(true);
     };
 
     return (
@@ -133,8 +148,7 @@ export default function ListaCondominios() {
                             {condominio.tipo}
                         </td>
                         <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                            <Dropdown
-                            onDelete={}/>
+                            <Dropdown onDeleteAction={()=>excluirCondominio(condominio.id)}/>
                         </td>
                         </tr>
                     ))
@@ -142,6 +156,13 @@ export default function ListaCondominios() {
                 </tbody>
                 </table>
             </div>
+            <CondoToast 
+                open={toastOpen} 
+                onOpenChange={setToastOpen} 
+                title={toastDetails.title}
+                description={toastDetails.description}
+                tipo={toastDetails.tipo}
+            />
         </div>
     );
 }

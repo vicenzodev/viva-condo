@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "./utils/supabase/client";
 import { useRouter } from "next/navigation";
-
-// Radix Toast
-import * as Toast from "@radix-ui/react-toast";
+import { CondoToast } from "@/components/toast";
 
 export default function Page() {
 
@@ -16,9 +14,8 @@ export default function Page() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-
-  // Estado do toast
   const [toastOpen, setToastOpen] = useState(false);
+  const [toastDetails, setToastDetails] = useState({ title: "", description: "", tipo: "sucesso" as "sucesso" | "erro" });
 
   useEffect(() => {
     const checkSession = async () => {
@@ -47,8 +44,7 @@ export default function Page() {
         return;
       }
 
-      // 🔔 Dispara toast
-      setToastOpen(true);
+      showToast("Aguarde...","Login realizado com sucesso",);
 
       // Redireciona
       setTimeout(() => {
@@ -69,24 +65,12 @@ export default function Page() {
     return null;
   }
 
+  const showToast = (title: string, description: string, tipo: "sucesso" | "erro" = "sucesso") => {
+      setToastDetails({ title, description, tipo });
+      setToastOpen(true);
+  };
+
   return (
-    <Toast.Provider swipeDirection="right" duration={3000}>
-      
-      {/* TOAST */}
-      <Toast.Root
-        open={toastOpen}
-        onOpenChange={setToastOpen}
-        className="bg-green-600/70 text-white px-4 py-3 rounded-md shadow-lg data-[state=open]:animate-slideIn data-[state=closed]:animate-fadeOut"
-      >
-        <Toast.Title className="font-semibold">Login realizado!</Toast.Title>
-        <Toast.Description>Aguarde...</Toast.Description>
-      </Toast.Root>
-
-      <Toast.Viewport
-        className="fixed top-4 right-4 z-50 w-96 max-w-full outline-none"
-      />
-
-      {/* CONTEÚDO */}
       <div className="flex h-screen flex-col md:flex-row">
         <div className="w-full flex items-center justify-center p-6">
           <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
@@ -124,11 +108,15 @@ export default function Page() {
                 {loading ? "Entrando..." : "Entrar"}
               </button>
             </form>
-
+            <CondoToast 
+              open={toastOpen} 
+              onOpenChange={setToastOpen} 
+              title={toastDetails.title}
+              description={toastDetails.description}
+              tipo={toastDetails.tipo}
+            />
           </div>
         </div>
       </div>
-
-    </Toast.Provider>
   );
 }
